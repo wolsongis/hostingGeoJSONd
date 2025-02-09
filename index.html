@@ -7,7 +7,7 @@
     <style>
       html,
       body,
-      arcgis-map {
+      #viewDiv {
         padding: 0;
         margin: 0;
         height: 100%;
@@ -36,14 +36,66 @@
       src="https://js.arcgis.com/map-components/4.31/arcgis-map-components.esm.js"
     ></script>
 
+    <script>
+      require(["esri/Map", "esri/layers/GeoJSONLayer", "esri/views/MapView"], (
+        Map,
+        GeoJSONLayer,
+        MapView
+      ) => {
+      
+        const url = "https://raw.githubusercontent.com/wolsongis/hostingGeoJSONs/main/assets/initalmap.geojson";
+
+        // Defining a popup template 
+        const template = {
+          title: "POI",
+          content: " Testing... ",
+        };
+  
+        // Defining the pop up characteristics 
+        const renderer = {
+          type: "simple",
+          symbol: {
+            type: "simple-marker",
+            color: "red",
+            outline: {
+              color: "black"
+            },
+            size: "16px"
+          }
+        };
+        
+        // Creating the geojson layer 
+
+        const geojsonLayer = new GeoJSONLayer({
+          url: url,
+          copyright: "USGS Earthquakes",
+          popupTemplate: template,
+          renderer: renderer,
+          orderBy: {
+            field: "mag"
+          }
+        });
+  
+        // Creating the map 
+
+        const map = new Map({
+          basemap: "gray-vector",
+          layers: [geojsonLayer]
+        });
+  
+        // Creating the map view
+        const view = new MapView({
+          container: "viewDiv",
+          center: [-74.184, 40.73],
+          zoom: 9,
+          map: map
+        });
+      });
+    </script>
   </head>
 
   <body>
-
-    <arcgis-map basemap="arcgis/topographic" center="-118.805, 34.027" zoom="13">
-            <arcgis-zoom position="top-left"></arcgis-zoom>
-    </arcgis-map>
-    
+    <div id="viewDiv"></div>
   </body>
 
 </html>
