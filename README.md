@@ -7,7 +7,7 @@ GIS Programming course, Spring 2025.
 
 ## View the Webpage  
 
-You can view the webpage I created at `https://wolsongis.github.io/hostingGeoJSONd/`.  
+You can view the webpage I created at `https://wolsongis.github.io/hostingGeoJSONs/`.  
 
 ## Questions or Issues  
 
